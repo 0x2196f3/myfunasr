@@ -1,16 +1,7 @@
 import subprocess
 import sys
-import platform
 
-# Check the host architecture
-arch = platform.machine()
-
-if arch == 'aarch64':  # arm64
-    thread_num = 4
-else:  # amd64
-    thread_num = 1
-
-command = ["bash", "run_server_2pass.sh", "--certfile", "0", "--model-thread-num", str(thread_num)]
+command = ["bash", "run_server_2pass.sh", "--certfile", "0"]
 
 # Start the new process
 process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -26,9 +17,8 @@ while True:
     except:
         pass
 
-# Wait for the child process to exit
-process.wait()
+# Wait for the child process to finish and get its return code
+return_code = process.wait()
 
-# Exit the main process
-sys.exit(0)
-
+# Exit the main process with the same return code
+sys.exit(return_code)
