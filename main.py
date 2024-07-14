@@ -3,7 +3,7 @@ import sys
 
 arch = platform.machine()
 
- if arch == 'aarch64':  # arm64
+if arch == 'aarch64':  # arm64
     thread_num = 4
 else:  # amd64
     thread_num = 1
