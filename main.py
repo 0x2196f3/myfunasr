@@ -1,7 +1,14 @@
 import subprocess
 import sys
 
-command = ["bash", "run_server_2pass.sh", "--certfile", "0"]
+arch = platform.machine()
+
+ if arch == 'aarch64':  # arm64
+    thread_num = 4
+else:  # amd64
+    thread_num = 1
+
+command = ["bash", "run_server_2pass.sh", "--certfile", "0", "--model-thread-num", str(thread_num)]
 
 # Start the new process
 process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
